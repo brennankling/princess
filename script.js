@@ -1,32 +1,27 @@
 // ===== DAY COUNTER =====
 (function () {
-  var start = new Date('2026-01-20');
-  var now = new Date();
-  var diff = Math.floor((now - start) / (1000 * 60 * 60 * 24));
+  var nowEST = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
+  var start = new Date('2026-01-22');
+  var diff = Math.floor((nowEST - start) / (1000 * 60 * 60 * 24));
   var el = document.getElementById('daycount');
   if (el) el.textContent = diff + ' days!!';
 })();
 
 // ===== 6-MONTH COUNTDOWN =====
 (function () {
-  var start = new Date('2026-01-20');
-  var sixMonths = new Date(start);
-  sixMonths.setMonth(sixMonths.getMonth() + 6);
-  var now = new Date();
-  var diff = Math.ceil((sixMonths - now) / (1000 * 60 * 60 * 24));
+  var nowEST = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
+  var sixMonths = new Date('2026-07-22');
+  var diff = Math.ceil((sixMonths - nowEST) / (1000 * 60 * 60 * 24));
   var el = document.getElementById('sixmonths');
   if (el) el.textContent = diff > 0 ? diff : '0 (it\'s today!!)';
 })();
 
-// ===== VISITOR COUNTER (localStorage) =====
+// ===== VISITOR COUNTER =====
 (function () {
-  var count = parseInt(localStorage.getItem('seovisitors') || '0') + 1;
-  localStorage.setItem('seovisitors', count);
-  var pad = String(count).padStart(6, '0');
   var cEl = document.getElementById('counter');
   var vEl = document.getElementById('visitor-num');
-  if (cEl) cEl.textContent = pad;
-  if (vEl) vEl.textContent = count;
+  if (cEl) cEl.textContent = '000001';
+  if (vEl) vEl.textContent = '1';
 })();
 
 // ===== POPUP ON LOAD =====
