@@ -97,14 +97,13 @@ function votePoll(e) {
   e.preventDefault();
   var selected = document.querySelector('input[name="poll"]:checked');
   if (!selected) return;
-  var messages = {
-    '1': 'Aww, thanks!! ♥',
-    '2': 'We agree!! ♥♥',
-    '3': 'CORRECT ANSWER!! ♥♥♥'
-  };
   var result = document.getElementById('poll-result');
   result.style.display = 'block';
-  result.textContent = messages[selected.value] || '♥';
+  if (selected.value === '6') {
+    result.textContent = 'CORRECT ANSWER!! ♥♥♥';
+  } else {
+    result.textContent = 'Hmm... that\'s true but try again!! 👀';
+  }
 }
 
 // ===== CURSOR SPARKLE EFFECT =====

@@ -1,35 +1,49 @@
-# How to Deploy to GitHub Pages
+# Updating the Website
 
-## Step 1 — Create a GitHub repo
-1. Go to https://github.com/new
-2. Name it something like `seojean` or `anniversary`
-3. Set it to **Public**
-4. Click **Create repository**
+Whenever you make changes to any file, run these three commands to push them live:
 
-## Step 2 — Push your files
-Open a terminal in this folder and run:
+```bash
+git add .
+git commit -m "describe what you changed"
+git push
+```
+
+GitHub Pages will automatically rebuild the site — it's usually live within 30 seconds.
+
+---
+
+## Common updates
+
+**Edit text (story, reasons, memories, etc.)**
+Open `index.html` and find the section you want. Edit the text directly and save.
+
+**Add photos to the Gold Mine**
+1. Drop the new image into the `images/` folder
+2. Open `index.html` and find the `<!-- BABY PHOTO GOLD MINE -->` section
+3. Add a new line inside the photo grid:
+   ```html
+   <img src="images/YOUR_FILE.jpeg" alt="baby me 👶" onclick="openLightbox(this.src, this.alt)">
+   ```
+
+**Change the start date / day counter**
+Open `script.js` and update the date on this line:
+```js
+var start = new Date('2026-01-20');
+```
+
+---
+
+## First time setup (already done if site is live)
 
 ```bash
 git init
 git add .
-git commit -m "happy 3 months seojean"
+git commit -m "initial commit"
 git branch -M main
 git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
 git push -u origin main
 ```
 
-## Step 3 — Enable GitHub Pages
-1. Go to your repo on GitHub
-2. Click **Settings** → **Pages** (left sidebar)
-3. Under "Source", select **Deploy from a branch**
-4. Choose **main** branch, **/ (root)** folder
-5. Click **Save**
+Then go to your repo → **Settings** → **Pages** → set source to **main / (root)** → Save.
 
-Your site will be live at:
-**https://YOUR_USERNAME.github.io/YOUR_REPO_NAME**
-
-(Takes ~1 minute to go live after first deploy)
-
-## Adding photos
-Drop your photos into the `images/` folder, then add `<img>` tags
-to the photo grid in `index.html`. See the comment in the gallery section.
+Site will be live at: **https://YOUR_USERNAME.github.io/YOUR_REPO_NAME**
