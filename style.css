@@ -1,5 +1,61 @@
 /* ===== EARLY 2000s WEB AESTHETIC ===== */
 
+/* ===== SEOJEAN HERO ===== */
+.hero-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 18px 0 10px;
+}
+.orbit-container {
+  position: relative;
+  width: 180px;
+  height: 180px;
+}
+.hero-photo {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  object-position: top;
+  border: 4px ridge #ff69b4;
+  image-rendering: pixelated;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.orbit-ring {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  animation: orbit-spin 5s linear infinite;
+}
+.orbit-heart {
+  position: absolute;
+  font-size: 14px;
+  top: 50%;
+  left: 50%;
+  transform:
+    rotate(calc(var(--i) * 45deg))
+    translateY(-90px)
+    rotate(calc(var(--i) * -45deg));
+  animation: heart-pulse 1s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.125s);
+  color: #ff69b4;
+  text-shadow: 0 0 4px #ff00ff;
+  image-rendering: pixelated;
+  font-family: monospace;
+}
+@keyframes orbit-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes heart-pulse {
+  0%, 100% { font-size: 14px; opacity: 1; }
+  50%       { font-size: 10px; opacity: 0.6; }
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Tahoma&display=swap');
 
 * {
