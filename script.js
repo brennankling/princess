@@ -66,18 +66,46 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-// ===== GUESTBOOK =====
+// ===== GUESTBOOK (Firebase Firestore) =====
+var db = (function () {
+  var firebaseConfig = {
+    apiKey: "AIzaSyBMmgeSCuPBTvpPcVL3UGBu9sRV_6uxIHw",
+    authDomain: "princess-4a412.firebaseapp.com",
+    projectId: "princess-4a412",
+    storageBucket: "princess-4a412.firebasestorage.app",
+    messagingSenderId: "326717943448",
+    appId: "1:326717943448:web:6d07e2d62e490aa5a56aed"
+  };
+  firebase.initializeApp(firebaseConfig);
+  return firebase.firestore();
+})();
+
+// Live-load all entries
+db.collection('guestbook')
+  .orderBy('timestamp', 'asc')
+  .onSnapshot(function (snapshot) {
+    var entries = document.getElementById('guestbook-entries');
+    entries.innerHTML = '';
+    snapshot.forEach(function (doc) {
+      var d = doc.data();
+      var div = document.createElement('div');
+      div.className = 'gb-entry';
+      div.innerHTML = '<b>' + escapeHtml(d.name) + '</b> says: <i>"' + escapeHtml(d.message) + '"</i>';
+      entries.appendChild(div);
+    });
+  });
+
 function signGuestbook(e) {
   e.preventDefault();
   var name = document.getElementById('gb-name').value.trim();
   var msg  = document.getElementById('gb-msg').value.trim();
   if (!name || !msg) return;
 
-  var entries = document.getElementById('guestbook-entries');
-  var div = document.createElement('div');
-  div.className = 'gb-entry';
-  div.innerHTML = '<b>' + escapeHtml(name) + '</b> says: <i>"' + escapeHtml(msg) + '"</i>';
-  entries.appendChild(div);
+  db.collection('guestbook').add({
+    name: name,
+    message: msg,
+    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+  });
 
   document.getElementById('gb-name').value = '';
   document.getElementById('gb-msg').value = '';
